@@ -1,0 +1,11 @@
+config.json
+# Ignore Python bytecode and cache files
+__pycache__/
+*.py[cod]
+
+# Ignore virtual environments
+venv/
+.env/
+
+#Ignore the calendar.ics file:
+calendar.ics
