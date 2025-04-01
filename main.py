@@ -1,5 +1,6 @@
 from LearningSuite import learningSuite
 from Canvas import getICS
+from Shared import authentication
 import sys
 
 
@@ -11,7 +12,8 @@ def main():
         else:
             print("ERROR: Unknown Command. Exiting process.")
 
-    learningSuite.learningSuite(debugMode)
+    #learningSuite.learningSuite(debugMode)
+    authentication.loginFromCL()
     getICS.getICS()
     pass
 

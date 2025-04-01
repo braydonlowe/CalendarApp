@@ -2,15 +2,15 @@ from LearningSuite import selenium_imports as selenium
 from Shared import getConfig
 
 
-def login(driver: selenium.WebDriver) -> None:
+def login(driver: selenium.WebDriver, username: str, password: str) -> None:
     print("CALLED LOGIN\n")
 
     config = getConfig.load_config()
 
 
     login_url = config.get("website")
-    username = config.get("username")
-    password = config.get("password")
+    #username = config.get("username")
+    #password = config.get("password")
 
     driver.get(login_url)
 

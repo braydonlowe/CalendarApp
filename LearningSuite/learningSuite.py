@@ -15,9 +15,9 @@ def createDriver(debugMode: bool) -> selenium.WebDriver:
     return selenium.webdriver.Chrome(options=chrome_options)
 
 
-def learningSuite(debugMode: bool) -> None:
+def learningSuite(debugMode: bool, username: str, password: str) -> None:
     driver = createDriver(debugMode)
-    login.login(driver)
+    login.login(driver, username, password)
     class_events = getSchedule.getSchedule(driver)
     driver.quit()
     #Here is where I would put it into the DB
