@@ -16,7 +16,7 @@ BYU Unified Calendar is a tool designed to consolidate class schedules from Lear
 - **Python** (for web scraping and processing)  
 - **Selenium** (for Learning Suite scraping)  
 - **Requests** (for handling ICS file fetching)  
-- **PostgresSQL** for storing calendar data locally.
+- **SQLite** for storing calendar data locally.
 
 
 ## ERD Diagram
