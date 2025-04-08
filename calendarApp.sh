@@ -1,7 +1,10 @@
 #!/bin/bash
-
-./install.sh
-
 echo "Starting Project"
-python main.py
+
+read -p "Enter your username: " username
+read -s -p "Enter your password: " password
+echo
+
+printf "%s\n%s" "$username" "$password" | python main.py
+
 echo "Project exited"

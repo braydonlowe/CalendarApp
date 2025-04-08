@@ -5,12 +5,11 @@ from Shared import getConfig
 def login(driver: selenium.WebDriver, username: str, password: str) -> None:
     print("CALLED LOGIN\n")
 
+
+    #Stil uses the config file this can probably be removed and we can put the URL into the DB.
     config = getConfig.load_config()
 
-
     login_url = config.get("website")
-    #username = config.get("username")
-    #password = config.get("password")
 
     driver.get(login_url)
 
