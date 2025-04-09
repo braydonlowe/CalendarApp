@@ -20,4 +20,10 @@ def loginFromCL(debugMode: bool, username: str, password: str):
             canvas_url = input("Please enter your Canvas ICS URL: ")
             print(canvas_url)
             utils.create_user(username, password, canvas_url)
+            
+            #This will be removed later once we get multiple semesters possible
+            utils.create_semester("Winter 2025")
+            #create User_semester and associate them together
+            utils.create_user_semester(username, "Winter 2025")
+            #Associate/create class data and assignments data
             return
