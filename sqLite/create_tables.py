@@ -1,15 +1,12 @@
 import sqlite3
+from sqLite import utils
 
-def createCursorConn() -> tuple[sqlite3.Cursor, sqlite3.Connection]:
-    conn = sqlite3.connect("calendarApp.db")
-    cursor = conn.cursor()
-    return cursor, conn
 
 def checkTableIfExists() -> bool:
-    cursor, conn = createCursorConn()
+    cursor, conn = utils.createCursorConn()
     try:
         cursor.execute("""
-            SELECT username FROM sqlite_master
+            SELECT name FROM sqlite_master
             WHERE type='table' AND name='User'
         """)
         return cursor.fetchone() is not None
@@ -24,7 +21,7 @@ def createTables():
     if checkTableIfExists():
         return
     
-    cursor, conn = createCursorConn()
+    cursor, conn = utils.createCursorConn()
     #Else create the tables
 
     try:

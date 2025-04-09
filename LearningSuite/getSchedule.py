@@ -34,5 +34,5 @@ def getSchedule(driver: selenium.WebDriver) -> dict:
 
     #Date time: w-22 outer div with an inner div of <time 
 
-    print(scheduledItems)
+    #print(scheduledItems)
     return scheduledItems

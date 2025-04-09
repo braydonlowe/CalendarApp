@@ -5,6 +5,6 @@ read -p "Enter your username: " username
 read -s -p "Enter your password: " password
 echo
 
-printf "%s\n%s" "$username" "$password" | python main.py
+python main.py "$username" "$password"
 
 echo "Project exited"

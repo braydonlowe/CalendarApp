@@ -5,9 +5,7 @@ from LearningSuite import getSchedule
 
 
 def createDriver(debugMode: bool) -> selenium.WebDriver:
-    
     #Headless means that the browser will not appear when the script is run.
-    
     if debugMode:
         return selenium.webdriver.Chrome()
     chrome_options = selenium.Options()
@@ -15,9 +13,12 @@ def createDriver(debugMode: bool) -> selenium.WebDriver:
     return selenium.webdriver.Chrome(options=chrome_options)
 
 
-def learningSuite(debugMode: bool, username: str, password: str) -> None:
+def learningSuite(debugMode: bool, username: str, password: str) -> bool:
     driver = createDriver(debugMode)
     login.login(driver, username, password)
     class_events = getSchedule.getSchedule(driver)
     driver.quit()
+    if class_events:
+        return True
+    return False
     #Here is where I would put it into the DB
