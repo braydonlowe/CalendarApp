@@ -56,3 +56,6 @@ def create_user(username: str, password: str, canvas_url: str) -> None:
 
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+
+def create_semester():
+    pass

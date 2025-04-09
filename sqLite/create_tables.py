@@ -32,17 +32,20 @@ def createTables():
             password TEXT NOT NULL,
             canvas_url TEXT NOT NULL
         );
+                             
+        CREATE TABLE IF NOT EXISTS Semester (
+            semester_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            semester_name TEXT NOT NULL
+        );
                             
         CREATE TABLE IF NOT EXISTS Class (
             class_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            class_name TEXT NOT NULL
+            class_name TEXT NOT NULL,
+            semester_id INTEGER,
+            FOREIGN KEY (semester_id) REFERENCES Semester(semester_id)
         );
                             
-        CREATE TABLE IF NOT EXISTS Semester (
-            semester_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            class_id INTEGER NOT NULL,
-            FOREIGN KEY (class_id) REFERENCES Class(class_id)
-        );
+        
                     
         CREATE TABLE IF NOT EXISTS User_Semester (
             user_id INTEGER NOT NULL,
