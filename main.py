@@ -2,6 +2,7 @@ from LearningSuite import learningSuite
 from Canvas import getICS
 from Shared import authentication
 from Shared import shared_imports
+from sqLite import create_tables
 
 
 def main():
@@ -12,11 +13,11 @@ def main():
         else:
             print("ERROR: Unknown Command. Exiting process.")
 
-    
+    create_tables.createTables()
 
     #learningSuite.learningSuite(debugMode)
     authentication.loginFromCL()
-    getICS.getICS()
+    #getICS.getICS()
     pass
 
 if __name__ == "__main__":

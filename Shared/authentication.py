@@ -7,10 +7,9 @@ def casAuthentication(username: str, password: str) -> bool:
     pass
 
 def getUser(username):
-    conn = sqlite3.connect("users.db")
-    cursor = conn.cursor()
-
-    cursor.execute("")
+    #We sould call a function that queries the db here inside of the sqlite folder
+    print("CALL SQlite FOLDER HERE")
+    return None
 
 
 def loginFromCL():
