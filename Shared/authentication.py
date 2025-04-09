@@ -1,15 +1,9 @@
-import sqlite3
-import pwinput
 from LearningSuite import learningSuite
 from Shared import shared_imports
+from sqLite import utils
 
 def casAuthentication(username: str, password: str) -> bool:
-    pass
-
-def getUser(username):
-    #We sould call a function that queries the db here inside of the sqlite folder
-    print("CALL SQlite FOLDER HERE")
-    return None
+    return True
 
 
 def loginFromCL():
@@ -18,10 +12,13 @@ def loginFromCL():
     username = lines[0]
     password = lines[1]
 
-    user = getUser(username)
+    user_isValidated = utils.validate_user(username, password)
+
 
     #Just for debugging purposes:
-    print(f"Username: {username}\n Password: {password}\n\n")
+    print(f"UserValidated: {user_isValidated}")
 
-    if not user:
+    if not user_isValidated:
         authenticated = casAuthentication(username, password)
+        if not authenticated:
+            return

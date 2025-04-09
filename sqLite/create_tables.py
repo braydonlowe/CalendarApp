@@ -1,12 +1,12 @@
 import sqlite3
 
-def createCursor() -> tuple[sqlite3.Cursor, sqlite3.Connection]:
+def createCursorConn() -> tuple[sqlite3.Cursor, sqlite3.Connection]:
     conn = sqlite3.connect("calendarApp.db")
     cursor = conn.cursor()
     return cursor, conn
 
 def checkTableIfExists() -> bool:
-    cursor, conn = createCursor()
+    cursor, conn = createCursorConn()
     try:
         cursor.execute("""
             SELECT username FROM sqlite_master
@@ -24,7 +24,7 @@ def createTables():
     if checkTableIfExists():
         return
     
-    cursor, conn = createCursor()
+    cursor, conn = createCursorConn()
     #Else create the tables
 
     try:

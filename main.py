@@ -3,6 +3,7 @@ from Canvas import getICS
 from Shared import authentication
 from Shared import shared_imports
 from sqLite import create_tables
+from sqLite import utils
 
 
 def main():
@@ -14,6 +15,7 @@ def main():
             print("ERROR: Unknown Command. Exiting process.")
 
     create_tables.createTables()
+
 
     #learningSuite.learningSuite(debugMode)
     authentication.loginFromCL()
