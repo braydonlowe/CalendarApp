@@ -1,6 +1,7 @@
 from LearningSuite import selenium_imports as selenium
 from LearningSuite import login
 from LearningSuite import getSchedule
+from sqLite import utils
 
 
 
@@ -18,7 +19,8 @@ def learningSuite(debugMode: bool, username: str, password: str) -> bool:
     login.login(driver, username, password)
     class_events = getSchedule.getSchedule(driver)
     driver.quit()
-    if class_events:
-        return True
-    return False
+    return class_events
     #Here is where I would put it into the DB
+
+
+

@@ -57,6 +57,7 @@ def createTables():
                             
         CREATE TABLE IF NOT EXISTS Assignments (
             assignment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            assignment_name TEXT NOT NULL,
             class_id INTEGER,
             due_date DATETIME,
             completed BOOLEAN,

@@ -23,7 +23,7 @@ def getSchedule(driver: selenium.WebDriver) -> dict:
                 scheduledItems[class_name] = []
 
             scheduledItems[class_name].append({
-                "assignement": assignment_name,
+                "assignment": assignment_name,
                 "due_date": date_due,
                 "completed": checked
             })
@@ -31,8 +31,6 @@ def getSchedule(driver: selenium.WebDriver) -> dict:
         except:
             break
         counter += 2
-
-    #Date time: w-22 outer div with an inner div of <time 
 
     #print(scheduledItems)
     return scheduledItems

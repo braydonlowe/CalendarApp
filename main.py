@@ -3,7 +3,7 @@ from Canvas import getICS
 from Shared import authentication
 from Shared import shared_imports
 from sqLite import create_tables
-from sqLite import utils
+from sqLite import import_data
 
 
 def main():
@@ -25,7 +25,13 @@ def main():
         return
 
     create_tables.createTables()
-    authentication.loginFromCL(debugMode, username, password)
+    class_events, authenticated = authentication.loginFromCL(debugMode, username, password)
+
+    #If class events is none, it means either error or it already exists.
+    if class_events != None:
+        import_data.import_data_into_db(class_events)
+
+    #canvas portion of the application
     #getICS.getICS()
     pass
 
