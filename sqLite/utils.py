@@ -219,4 +219,23 @@ def format_due_date(due_date_str: str) -> str:
         return None
 
 
+
+def retrieve_ICS(username: str) -> str | None:
+    cursor, conn = createCursorConn()
+    try:
+        cursor.execute("""
+            SELECT canvas_url FROM User
+            WHERE username = ?
+        """, (username,))
+        ics_result = cursor.fetchone()
+        if ics_result:
+            return ics_result[0]
+        
+        return None
+    except sqlite3.Error as e:
+        print(f"Database error retrieving canvas_url: {e}")
+    finally:
+        conn.close()
+    
+
 #Queries to run for the CL client.

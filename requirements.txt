@@ -2,3 +2,4 @@ requests
 selenium
 pwinput
 bcrypt
+ics

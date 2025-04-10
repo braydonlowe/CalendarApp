@@ -32,8 +32,12 @@ def main():
         import_data.import_data_into_db(class_events)
 
     #canvas portion of the application
-    #getICS.getICS()
-    pass
+    canvas_class_events = getICS.getICS(username)
+
+    if canvas_class_events != None:
+        import_data.import_data_into_db(canvas_class_events)
+
+    #From here down we can establish our program Interface
 
 if __name__ == "__main__":
     main()
