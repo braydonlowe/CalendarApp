@@ -1,7 +1,7 @@
 import sqlite3
 from sqLite import create_tables
 import bcrypt
-from datetime import datetime
+from datetime import datetime, timedelta, date
 
 
 def createCursorConn() -> tuple[sqlite3.Cursor, sqlite3.Connection]:
@@ -247,3 +247,66 @@ def retrieve_classes(username: str):
         print(f"Database error retrieving canvas_url: {e}")
     finally:
         conn.close()
+
+
+#For retrieving due date data
+def get_one_week_dates() -> tuple[str, str]:
+    today = date.today()
+
+    monday = today - timedelta(days=today.weekday())
+    sunday = monday + timedelta(days=6)
+
+    string_monday = monday.strftime("%b %d")
+    string_sunday = sunday.strftime("%b %d")
+
+    return string_monday, string_sunday
+
+def retrieve_due_all(username: str, semester_name):
+    cursor, conn = createCursorConn()
+    monday, sunday = get_one_week_dates()
+
+    try:
+        cursor.execute("""
+            SELECT a.assignment_name, a.due_date, c.class_name
+            FROM Assignments a
+            JOIN Class c ON a.class_id = c.class_id
+            JOIN User_Semester us ON us.semester_id = c.semester_id
+            JOIN User u ON u.user_id = us.user_id
+            WHERE u.username = ?
+            AND us.semester_name = ?
+            AND a.due_date BETWEEN ? AND ?
+            AND a.completed = 0;
+        """, (username, semester_name, monday, sunday))
+
+        assignments = cursor.fetchall()
+        return assignments
+
+    except sqlite3.Error as e:
+        print(f"Database error retrieving all assignments due: {e}")
+    finally:
+        conn.close()
+    
+
+
+def retrieve_due_class(username: str, semester_name: str, class_name: str):
+    cursor, conn = createCursorConn()
+    monday, sunday = get_one_week_dates()
+
+    try:
+        cursor.execute("""
+            SELECT a.assignment_name, a.due_date, c.class_name
+            FROM Assignments a
+            JOIN Class c ON a.class_id = c.class_id
+            JOIN User_Semester us ON us.semester_id = c.semester_id
+            JOIN User u ON u.user_id = us.user_id
+            WHERE u.username = ?
+            AND us.semester_name = ?
+            AND c.class_name = ?
+            AND BETWEEN ? AND ?
+            AND a.completed = 0
+        """, (username, semester_name, class_name, monday, sunday))
+    except sqlite3.Error as e:
+        print(f"Database error retrieving class assignments due: {e}")
+    finally:
+        conn.close()
+    

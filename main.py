@@ -58,6 +58,9 @@ def main():
                     print(name)
             elif number == 2:
                 #Here is the call for everything due this week.
+                assignments_this_week = utils.retrieve_due_all(username, "Winter 2025")
+                print("Assignemnts due this week:\n")
+                print(assignments_this_week)
                 pass
             elif number == 3:
                 return
