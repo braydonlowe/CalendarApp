@@ -27,6 +27,10 @@ def main():
     create_tables.createTables()
     class_events, authenticated = authentication.loginFromCL(debugMode, username, password)
 
+    #If the user isn't valid we can just end the program.
+    if not authenticated:
+        return
+
     #If class events is none, it means either error or it already exists.
     if class_events != None:
         import_data.import_data_into_db(class_events)
@@ -37,7 +41,29 @@ def main():
     if canvas_class_events != None:
         import_data.import_data_into_db(canvas_class_events)
 
-    #From here down we can establish our program Interface
+   
+
+    program_running = True
+    while program_running:
+        print("[1] SEE CLASSES")
+        print("[2] DUE THIS WEEK")
+        print("[3] QUIT")
+        choice = input("Enter Input: ")
+        if choice.isdecimal():
+            number = int(choice)
+            if number == 1:
+                print("\n\nHIT ONE")
+                #Get classes, then we need to print out each class.
+                pass
+            if number == 2:
+                #Here is the call for everything due this week.
+                pass
+            if number == 3:
+                return
+            else:
+                print("Please enter a number 1-3\n")
+        else:
+            print("Please enter a number 1-3\n")
 
 if __name__ == "__main__":
     main()

@@ -11,7 +11,7 @@ def createCursorConn() -> tuple[sqlite3.Cursor, sqlite3.Connection]:
 
 
 #Get and create user
-def validate_user(username: str, password: str) -> bool:
+def validate_user(username: str, password: str) -> tuple[bool, bool]:
     cursor, conn = createCursorConn()
 
     try:
@@ -28,11 +28,12 @@ def validate_user(username: str, password: str) -> bool:
         conn.close()
     
     if result is None:
-        return False
+        return False, False #User exists, Password Match
     
     hashed_password = result[0]
 
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password)
+    password_match = bcrypt.checkpw(password.encode('utf-8'), hashed_password)
+    return True, password_match
 
 
 

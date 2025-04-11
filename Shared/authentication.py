@@ -9,15 +9,15 @@ def casAuthentication(debugMode: bool, username: str, password: str) -> bool:
 
 
 def loginFromCL(debugMode: bool, username: str, password: str) -> tuple[dict | None, bool | None]:
-    user_isValidated = utils.validate_user(username, password)
+    user_exists, user_isValidated = utils.validate_user(username, password)
     #Just for debugging purposes:
     print(f"UserValidated: {user_isValidated}")
 
-    if not user_isValidated:
+    if not user_exists:
         class_events = casAuthentication(debugMode, username, password)
         if class_events == None:
             print("User cannot be authenticated")
-            return
+            return None, False
         print("User authenticated.")
         
         #Now we know if we have been authenticated
@@ -32,5 +32,5 @@ def loginFromCL(debugMode: bool, username: str, password: str) -> tuple[dict | N
         #Associate/create class data and assignments data
         return class_events, True #The true here means that the user was authenticated through cas
     
-    #Assuming the user is validated then:
-    return None, True
+    
+    return None, user_isValidated
