@@ -20,7 +20,7 @@ BYU Unified Calendar is a tool designed to consolidate class schedules from Lear
 
 
 ## ERD Diagram
-![Screenshot](Assets/ERD_3-31-25.png)
+![Screenshot](Assets/ERD_4-10-25.png)
 
 
 ## **Setup & Installation**  
