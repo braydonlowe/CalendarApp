@@ -4,6 +4,7 @@ from Shared import authentication
 from Shared import shared_imports
 from sqLite import create_tables
 from sqLite import import_data
+from sqLite import utils
 
 
 def main():
@@ -33,13 +34,13 @@ def main():
 
     #If class events is none, it means either error or it already exists.
     if class_events != None:
-        import_data.import_data_into_db(class_events)
+        import_data.import_data_into_db(username, class_events)
 
     #canvas portion of the application
     canvas_class_events = getICS.getICS(username)
 
     if canvas_class_events != None:
-        import_data.import_data_into_db(canvas_class_events)
+        import_data.import_data_into_db(username, canvas_class_events)
 
    
 
@@ -52,13 +53,13 @@ def main():
         if choice.isdecimal():
             number = int(choice)
             if number == 1:
-                print("\n\nHIT ONE")
-                #Get classes, then we need to print out each class.
-                pass
-            if number == 2:
+                class_names = utils.retrieve_classes(username)
+                for name in class_names:
+                    print(name)
+            elif number == 2:
                 #Here is the call for everything due this week.
                 pass
-            if number == 3:
+            elif number == 3:
                 return
             else:
                 print("Please enter a number 1-3\n")

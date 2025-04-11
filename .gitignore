@@ -11,3 +11,5 @@ calendar.ics
 
 #Ignore the db just keep it local
 calendarApp.db
+
+test.sh

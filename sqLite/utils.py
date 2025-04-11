@@ -36,6 +36,22 @@ def validate_user(username: str, password: str) -> tuple[bool, bool]:
     return True, password_match
 
 
+def get_user_id(username: str) -> int:
+    cursor, conn = createCursorConn()
+
+    try:
+        cursor.execute("""
+            SELECT user_id FROM User
+            WHERE username = ?
+        """, (username,))
+        user_result = cursor.fetchone()
+        return user_result[0]
+    except sqlite3.Error as e:
+        print(f"Database error get user id: {e}")
+    finally:
+        conn.close()
+
+
 
 def create_user(username: str, password: str, canvas_url: str) -> None:
     cursor, conn = createCursorConn()
@@ -62,43 +78,7 @@ def hash_password(password: str) -> str:
 
 
 
-#Semester objects
-def create_semester(semester_name: str):
-    cursor, conn = createCursorConn()
-
-    try:
-        cursor.execute("""
-            INSERT INTO Semester (semester_name)
-            VALUES (?)
-        """, (semester_name,))
-
-        conn.commit()
-    except sqlite3.Error as e:
-        print(f"Database error create sem: {e}")
-    finally:
-        conn.close()
-
-def get_semester_id(semester_name: str) -> int | None:
-    cursor, conn = createCursorConn()
-    try:
-        cursor.execute("""
-            SELECT semester_id FROM Semester
-            WHERE semester_name = ?
-        """, (semester_name,))
-        semester_result = cursor.fetchone()
-        if semester_result:
-            return semester_result[0]
-        else:
-            print("No semester id retrieved from the db.")
-            return None
-    except sqlite3.Error as e:
-        print(f"Database error get sem ID: {e}")
-    finally:
-        conn.close()
-
-
-
-#user semester
+#User_Semester
 def create_user_semester(username: str, semester_name: str):
     cursor, conn = createCursorConn()
 
@@ -111,31 +91,40 @@ def create_user_semester(username: str, semester_name: str):
         user_result = cursor.fetchone()
 
 
-        #retrieve semester_id
-        cursor.execute("""
-            SELECT semester_id FROM Semester
-            WHERE semester_name = ?
-        """, (semester_name,))
-        semester_result = cursor.fetchone()
-
-
-        if user_result == None or semester_result == None:
+        if user_result == None:
             raise ValueError("User or Semester not found.")
         
 
         user_id = user_result[0]
-        semester_id = user_result[0]
 
         cursor.execute("""
-            INSERT INTO User_Semester (user_id, semester_id)
+            INSERT INTO User_Semester (user_id, semester_name)
             VALUES(?, ?)
-        """, (user_id, semester_id))
+        """, (user_id, semester_name))
 
         conn.commit()
     except sqlite3.Error as e:
         print(f"Database error create user sem: {e}")
     except ValueError as ve:
         print(f"Value error: {ve}")
+    finally:
+        conn.close()
+
+
+def get_semester_id(user_id: int, semester_name: str):
+    cursor, conn = createCursorConn()
+
+    try:
+        cursor.execute("""
+            SELECT semester_id FROM User_Semester
+            WHERE user_id = ?
+            AND semester_name = ?
+        """, (user_id, semester_name))
+
+        user_semester_result = cursor.fetchone()
+        return user_semester_result[0]
+    except sqlite3.Error as e:
+        print(f"Database error get_semester_id: {e}")
     finally:
         conn.close()
 
@@ -240,3 +229,21 @@ def retrieve_ICS(username: str) -> str | None:
     
 
 #Queries to run for the CL client.
+
+
+def retrieve_classes(username: str):
+    cursor, conn = createCursorConn()
+
+    try:
+        cursor.execute("""
+            SELECT Class.class_name FROM User
+            JOIN User_Semester ON User.user_id = User_Semester.user_id
+            JOIN Class ON User_Semester.semester_id = Class.semester_id
+            WHERE User.username = ?
+        """, (username,))
+        classes_result = cursor.fetchall()
+        return [row[0] for row in classes_result]
+    except sqlite3.Error as e:
+        print(f"Database error retrieving canvas_url: {e}")
+    finally:
+        conn.close()
