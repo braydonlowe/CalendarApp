@@ -25,15 +25,15 @@ BYU Unified Calendar is a tool designed to consolidate class schedules from Lear
 
 ## **Setup & Installation**  
 1. Clone the repository:  
-   ```sh
+   ```bash
    git clone https://github.com/your-repo/byu-unified-calendar.git
    cd byu-unified-calendar
    ```
 2. Install dependencies:  
-   ```sh
-   bash install.sh
+   ```bash
+   ./install.sh
    ```
 3. Run the app:  
-   ```sh
-   bash main.sh
+   ```bash
+   ./calendarApp.sh
    ```
